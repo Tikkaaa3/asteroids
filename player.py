@@ -67,7 +67,7 @@ class Player(CircleShape):
         if not self.is_moving:
             self.velocity = pygame.Vector2(0, 0)
 
-    def update(self, dt):
+    def update(self, dt, rockets=2):
         keys = pygame.key.get_pressed()
 
         # Player rotation controls
@@ -99,7 +99,10 @@ class Player(CircleShape):
                 self.change_cooldown = 1
 
         if keys[pygame.K_SPACE]:
-            self.shoot()
+            if self.weapon == "rocket" and rockets > 0:
+                self.shoot()
+            elif self.weapon == "default":
+                self.shoot()
 
         # Apply rotation (turning)
         self.rotate(dt)
