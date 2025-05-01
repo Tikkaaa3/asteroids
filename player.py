@@ -8,7 +8,7 @@ from shot import Shot
 class Player(CircleShape):
     def __init__(self, x, y):
         super().__init__(x, y, PLAYER_RADIUS)
-        self.rotation = 0
+        self.rotation = 0  # Initial facing direction (0 radians, facing upwards)
         self.cooldown = PLAYER_SHOOT_COOLDOWN
         self.weapon = "default"
         self.change_cooldown = 0
@@ -41,17 +41,17 @@ class Player(CircleShape):
         # Calculate forward velocity vector based on the player's rotation
         direction = pygame.Vector2(0, 1).rotate(self.rotation)
 
-        # If we change direction (e.g., from W to S or S to W), reset velocity and rotation
+        # If we change direction (e.g., from W to S or S to W), reset velocity but keep rotation
         if self.last_movement != forward:
             self.velocity = pygame.Vector2(0, 0)  # Reset velocity on direction change
             self.rotation_velocity = 0  # Reset rotation velocity on direction change
-            # Reset the rotation to face upwards when switching direction
-            self.rotation = 0  # Reset rotation (default facing direction)
 
         if forward:
             self.velocity += direction * self.acceleration * dt  # Accelerate forward
         else:
-            self.velocity -= -direction * self.acceleration * dt  # Accelerate backward
+            self.velocity -= (
+                direction * self.acceleration * dt
+            )  # Accelerate backward (opposite direction)
 
         # Clamp velocity to max speed
         if self.velocity.length() > self.max_speed:
