@@ -19,6 +19,12 @@ def main():
     score = 0
     font = pygame.font.SysFont("Arial", 24)
 
+    background_img = pygame.image.load("images/background.png").convert()
+
+    background_img = pygame.transform.scale(
+        background_img, (SCREEN_WIDTH, SCREEN_HEIGHT)
+    )
+
     resume_img = pygame.image.load("images/button_resume.png").convert_alpha()
     replay_img = pygame.image.load("images/button_replay.png").convert_alpha()
     quit_img = pygame.image.load("images/button_quit.png").convert_alpha()
@@ -81,7 +87,7 @@ def main():
                 return
 
         else:
-            screen.fill("black")
+            screen.blit(background_img, (0, 0))
             score_text = font.render(f"Score: {score}", True, (255, 255, 255))
             screen.blit(score_text, (10, 10))
             for obj in drawable:
@@ -98,7 +104,7 @@ def main():
                 for bullet in shots:
                     if bullet.collision(obj):
                         bullet.kill()
-                        obj.split()
+                        obj.split(player.weapon)
                         score += 100
         pygame.display.flip()
 

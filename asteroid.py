@@ -16,10 +16,10 @@ class Asteroid(CircleShape):
     def update(self, dt):
         self.position += self.velocity * dt
 
-    def split(self):
+    def split(self, weapon):
         self.kill()
 
-        if self.radius <= ASTEROID_MIN_RADIUS:
+        if self.radius <= ASTEROID_MIN_RADIUS or weapon == "rocket":
             return
 
         angle = random.uniform(20, 50)
