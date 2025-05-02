@@ -91,7 +91,6 @@ class Player(CircleShape):
 
         if keys[pygame.K_c]:
             if self.change_cooldown < 0.0:
-                print("changed")
                 if self.weapon == "default":
                     self.weapon = "rocket"
                 else:
