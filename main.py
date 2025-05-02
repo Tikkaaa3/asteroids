@@ -145,7 +145,6 @@ def main():
 
             for shot in shots:
                 rockets = shot.draw(screen, rockets)
-                print(rockets)
 
             player.cooldown -= dt
             player.change_cooldown -= dt

@@ -18,11 +18,15 @@ class Shot(CircleShape):
 
         elif self.weapon == "rocket" and rocket_count > 0:
             pygame.draw.circle(screen, "white", self.position, self.radius * 2, 2)
-            print(self.cooldown)
             if self.cooldown < 0:
                 rocket_count -= 1
                 self.cooldown = 0.5
             return rocket_count
+
+        if self.weapon == "rocket" and rocket_count == 0:
+            pygame.draw.circle(screen, "white", self.position, self.radius * 2, 2)
+            return rocket_count
+
         return rocket_count
 
     def update(self, dt):
